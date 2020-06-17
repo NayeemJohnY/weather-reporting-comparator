@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Properties>
+		<Property name="filename">target/logs/weather-reporting-comparator.log</Property>
+	</Properties>
+	<ThresholdFilter level="DEBUG" />
+	<Appenders>
+		<Console name="STDOUT">
+			<PatternLayout>
+				<pattern>%date{HH:mm:ss.SSS}	 [%5class{1}.%method] [%-5level]	%msg%n</pattern>
+			</PatternLayout>
+		</Console>
+		<File name="File" fileName="${filename}" append ="false">
+			<PatternLayout>
+				<pattern>%date{HH:mm:ss.SSS}	 [%5class{1}.%method] [%-5level]	%msg%n</pattern>
+			</PatternLayout>
+		</File>
+	</Appenders>
+
+	<Loggers>
+		<Root level="DEBUG">
+			<AppenderRef ref="STDOUT" />
+			<AppenderRef ref="File" />
+		</Root>
+	</Loggers>
+</Configuration>
