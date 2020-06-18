@@ -1,9 +1,14 @@
 package pages;
 
+import static utils.ExtentHTMLReporter.reportLog;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
+
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 
 import base.Browser;
 
@@ -16,9 +21,11 @@ public class HomePage {
 	By weatherMenuBy = By.xpath("//a[text()='WEATHER']");
 
 	Browser browser;
+	ExtentTest extentTest;
 
-	public HomePage(Browser browser) {
+	public HomePage(Browser browser, ExtentTest extentTest) {
 		this.browser = browser;
+		this.extentTest = extentTest;
 		PageFactory.initElements(browser.driver, this);
 	}
 
@@ -29,7 +36,7 @@ public class HomePage {
 		browser.click(weatherMenuBy, "WEATHER Menu", browser.LOADING_TIMEOUT);
 		String title = browser.driver.getTitle();
 		if (title.contains("NDTV Weather")) {
-			log.info("Successfully navigated to NDTV Weather page");
+			reportLog(extentTest, Status.PASS,"Successfully navigated to NDTV Weather page");
 		} else {
 			throw new IllegalStateException("Failed to naviagate NDTV Weather page, the current page title is: " + title);
 		}

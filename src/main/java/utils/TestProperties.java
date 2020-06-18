@@ -6,13 +6,13 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ReadTestProperties {
+public class TestProperties {
 	private static Logger log = LogManager.getLogger();
 
 	/**
 	 * private constructor to not allow the instance creation of this class
 	 */
-	private ReadTestProperties() {
+	private TestProperties() {
 		
 	}
 

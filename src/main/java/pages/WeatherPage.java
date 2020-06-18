@@ -9,8 +9,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+
 import base.Browser;
-import utils.ReadTestProperties;
+import utils.TestProperties;
+import static utils.ExtentHTMLReporter.reportLog;
 
 public class WeatherPage {
 
@@ -20,43 +24,46 @@ public class WeatherPage {
 	By searchBoxBy = By.id("searchBox");
 	String searchCity = System.getProperty("City");
 	By availableCitiesBy = By.xpath("//div[@class='message' and not(@style='display: none;')]//input");
+	ExtentTest extentTest;
 
-	public WeatherPage(Browser browser) {
+	public WeatherPage(Browser browser, ExtentTest extentTest) {
 		this.browser = browser;
+		this.extentTest = extentTest;
 		PageFactory.initElements(browser.driver, this);
 
 	}
 
 	public void getWeatherInfoFromUI() {
-		HomePage homePage = new HomePage(browser);
+		HomePage homePage = new HomePage(browser, extentTest);
 		homePage.navigateToWeatherPage();
 		browser.waitForVisibility(pinYourCityElementBy, "Pin Your City", browser.LOADING_TIMEOUT);
 		if (searchCity == null || searchCity.isEmpty()) {
-			searchCity = ReadTestProperties.getProperties("city");
-			log.info("Search City is not provided, checking for default city : {}", searchCity);
+			searchCity = TestProperties.getProperties("city");
+			reportLog(extentTest, Status.WARNING,
+					"Search City is not provided, checking for default city : <b>" + searchCity + "</b>");
 		} else {
-			log.info("Search City is: {}", searchCity);
+			reportLog(extentTest, Status.PASS, "Search City is: " + searchCity);
 		}
-		browser.sendKeys(searchBoxBy, searchCity, "Search Box",  browser.LOADING_TIMEOUT);
-		browser.waitForVisibility(availableCitiesBy, "Available Cities", browser.LOADING_TIMEOUT);
+		browser.sendKeys(searchBoxBy, searchCity, "Search Box", browser.LOADING_TIMEOUT);
 		List<WebElement> availableCitiesElements = browser.driver.findElements(availableCitiesBy);
 		if (availableCitiesElements.isEmpty()) {
 			throw new IllegalArgumentException(
-					"There is no matching city available to pin for given city : " + searchCity);
+					"No matching city available to pin for given city Name : " + searchCity);
 		} else if (availableCitiesElements.size() > 1) {
-			log.info("Multiple cities available to pin for given city name : {}.", searchCity);
+			reportLog(extentTest, Status.WARNING,
+					"Multiple cities available to pin for given city name : <b>" + searchCity + "</b>");
 		}
 		WebElement cityElement = availableCitiesElements.get(0);
 		String cityName = cityElement.getAttribute("id");
 		if (cityElement.isSelected()) {
-			log.info("City {} already selected.", cityName);
+			reportLog(extentTest, Status.INFO, "City <b>" + cityName + "</b> already selected.");
 		} else {
 			browser.click(availableCitiesBy, "Select Search City", browser.LOADING_TIMEOUT);
-			log.info("City {} is selected.", cityName);
+			reportLog(extentTest, Status.PASS, "City <b>" + cityName + "</b> is selected.");
 		}
 		By cityInMapBy = By.xpath("//div[@class='outerContainer' and @title='" + cityName + "']");
 		if (browser.isElementPresent(cityInMapBy, browser.LOADING_TIMEOUT, "City in Map")) {
-			log.info("City {} is dispalyed in Map", cityName);
+			reportLog(extentTest, Status.PASS, "City <b>" + cityName + "</b> is dispalyed in Map");
 		} else {
 			throw new IllegalArgumentException("The city " + searchCity + " was not dispalyed in the Map");
 		}
@@ -67,9 +74,9 @@ public class WeatherPage {
 		for (WebElement weatherElement : browser.driver.findElements(weatherPopupContentBy)) {
 			weatherStrings.add(weatherElement.getAttribute("textContent"));
 		}
-		log.info("Weather Information for the City - {} : {}", cityName, weatherStrings);
+		reportLog(extentTest, Status.PASS, "Weather Information for the City - " + cityName + " : " + weatherStrings);
 		By closePopupBy = By.xpath("//a[@class='leaflet-popup-close-button']");
 		browser.click(closePopupBy, "Close Weather Content Pop up", browser.LOADING_TIMEOUT);
-				
+
 	}
 }

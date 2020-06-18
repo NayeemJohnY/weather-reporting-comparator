@@ -6,6 +6,7 @@ import java.net.URL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,13 +16,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import utils.ReadTestProperties;
+import utils.TestProperties;
 
 public class Browser {
 
 	Logger log = LogManager.getLogger();
 	public RemoteWebDriver driver;
-	public final int LOADING_TIMEOUT = Integer.parseInt(ReadTestProperties.getProperties("loadingTimeout"));
+	public final int LOADING_TIMEOUT = Integer.parseInt(TestProperties.getProperties("loadingTimeout"));
 
 	/**
 	 * Method to set up the the driver with the chrome browser It initializes the
@@ -31,7 +32,7 @@ public class Browser {
 	 */
 	private void setupBrowser() {
 		// Get default browser name from properties file
-		String browserName = ReadTestProperties.getProperties("Browser");
+		String browserName = TestProperties.getProperties("Browser");
 		DesiredCapabilities capabilities;
 		ChromeOptions options;
 		if (browserName.equalsIgnoreCase("chrome")) {
@@ -51,7 +52,7 @@ public class Browser {
 		if (server == null || server.isEmpty() || server.equalsIgnoreCase("local")) {
 			driver = new ChromeDriver(options);
 		} else if (server.equalsIgnoreCase("Remote")) {
-			String NodeURL = ReadTestProperties.getProperties("NodeURL");
+			String NodeURL = TestProperties.getProperties("NodeURL");
 			try {
 				driver = new RemoteWebDriver(new URL(NodeURL), capabilities);
 			} catch (MalformedURLException e) {
@@ -79,8 +80,15 @@ public class Browser {
 		log.info("Waiting for {} seconds for element to be clickable {}", timeOutInSeconds, elementName);
 		WebElement element = new WebDriverWait(driver, timeOutInSeconds)
 				.until(ExpectedConditions.elementToBeClickable(locator));
-		element.click();
-		log.info("Clikced on the Element: {}", elementName);
+		try {
+			element.click();
+			log.info("Clikced on the Element: {}", elementName);
+		} catch (ElementClickInterceptedException e) {
+			driver.executeScript("arguments[0].scrollIntoView()", element);
+			log.info("Javascript scroll into view to the element : {}", elementName);
+			driver.executeScript("arguments[0].click()", element);
+			log.info("Performed javascript click on the Element: {}", elementName);
+		}
 	}
 
 	/**
