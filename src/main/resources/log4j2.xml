@@ -2,17 +2,18 @@
 <Configuration status="INFO">
 	<Properties>
 		<Property name="filename">target/logs/weather-reporting-comparator.log</Property>
+		<Property name="pattern">[%date{HH:mm:ss.SSS}]	[%5class{1}.%method] [%-5level] %msg%n</Property>
 	</Properties>
 	<ThresholdFilter level="DEBUG" />
 	<Appenders>
 		<Console name="STDOUT">
 			<PatternLayout>
-				<pattern>%date{HH:mm:ss.SSS}	 [%5class{1}.%method] [%-5level]	%msg%n</pattern>
+				<pattern>${pattern}</pattern>
 			</PatternLayout>
 		</Console>
 		<File name="File" fileName="${filename}" append ="false">
 			<PatternLayout>
-				<pattern>%date{HH:mm:ss.SSS}	 [%5class{1}.%method] [%-5level]	%msg%n</pattern>
+				<pattern>${pattern}</pattern>
 			</PatternLayout>
 		</File>
 	</Appenders>

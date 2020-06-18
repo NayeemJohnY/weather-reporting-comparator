@@ -6,6 +6,7 @@ import java.net.URL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -19,7 +20,7 @@ import utils.ReadTestProperties;
 public class Browser {
 
 	Logger log = LogManager.getLogger();
-	RemoteWebDriver driver;
+	public RemoteWebDriver driver;
 	public final int LOADING_TIMEOUT = Integer.parseInt(ReadTestProperties.getProperties("loadingTimeout"));
 
 	/**
@@ -68,8 +69,61 @@ public class Browser {
 		log.info("Successfully launched URL : {}", url);
 	}
 
-	public void waitForVisibilty(By locator, String elementName, int timeOutInSeconds) {
-		new WebDriverWait(driver, timeOutInSeconds)
-		.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	public void waitForVisibility(By locator, String elementName, int timeOutInSeconds) {
+		log.info("Waiting for {} seconds for visibilty of element: {}", timeOutInSeconds, elementName);
+		new WebDriverWait(driver, timeOutInSeconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
+		log.info("{} element become visible ", elementName);
+	}
+
+	public void click(By locator, String elementName, int timeOutInSeconds) {
+		log.info("Waiting for {} seconds for element to be clickable {}", timeOutInSeconds, elementName);
+		WebElement element = new WebDriverWait(driver, timeOutInSeconds)
+				.until(ExpectedConditions.elementToBeClickable(locator));
+		element.click();
+		log.info("Clikced on the Element: {}", elementName);
+	}
+
+	/**
+	 * This method is used to close the active browser
+	 */
+	public void closeActiveBrowser() {
+		try {
+			if (driver != null) {
+				driver.quit();
+				log.info("Browser closed successfully");
+			}
+		} catch (Exception e) {
+			log.error("Unable to close the browser. Exception: ", e);
+		}
+	}
+
+	public void sendKeys(By locator, String keys, String elementName, int timeOutInSeconds) {
+		waitForVisibility(locator, elementName, timeOutInSeconds);
+		log.info("sending keys {} by locator {} for element {}", keys, locator, elementName);
+		WebElement element = driver.findElement(locator);
+		element.clear();
+		element.sendKeys(keys);
+
+	}
+
+	public boolean isElementPresent(By locator, long timeOutInSeconds, String elementName) {
+		boolean isPresent = !driver.findElements(locator).isEmpty();
+		if (!isPresent) {
+			try {
+				new WebDriverWait(driver, timeOutInSeconds).until(ExpectedConditions.presenceOfElementLocated(locator));
+			} catch (Exception e) {
+				log.error("Exception occurred while checking presence of Element : {}", elementName);
+			}
+
+		}
+
+		if (isPresent) {
+			log.info("Element found: {}", elementName);
+		} else {
+			log.warn("Expected element is not present in {} seconds, locator {}, element {}", timeOutInSeconds, locator,
+					elementName);
+		}
+
+		return isPresent;
 	}
 }
