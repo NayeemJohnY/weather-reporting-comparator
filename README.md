@@ -1,4 +1,4 @@
-#Weather Reporting Comparator
+# Weather Reporting Comparator
 
 This project is will compare weather conditions like Temperature in Degrees, Temperature in Fahrenheit and Humidity from the two sources with the allowed variance range.
 
