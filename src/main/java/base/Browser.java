@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -84,6 +85,21 @@ public class Browser {
 		log.info("Waiting for {} seconds for visibilty of element: {}", timeOutInSeconds, elementName);
 		new WebDriverWait(driver, timeOutInSeconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
 		log.info("{} element become visible ", elementName);
+	}
+
+	/**
+	 * Wait for an element's presence and visibility for a timeout in seconds.
+	 * Ignore TimeoutException
+	 * @param by By locator
+	 * @param elementName name of the element for log messages
+	 * @param timeout wait time in seconds
+	 */
+	public void waitForVisibilityWithoutException(By by, String elementName, long timeOutInSeconds) {
+		try {
+			waitForVisibility(by, elementName, timeOutInSeconds);
+		} catch (TimeoutException e) {
+			log.debug("Exception: ", e);
+		}
 	}
 
 	/**

@@ -19,6 +19,7 @@ public class HomePage {
 	By noThanksLinkBy = By.xpath("//a[text()='No Thanks']");
 	By subMenuBy = By.id("h_sub_menu");
 	By weatherMenuBy = By.xpath("//a[text()='WEATHER']");
+	By logoNDTVBy =By.xpath("//div[@class='ndtvlogo']");
 
 	Browser browser;
 	ExtentTest extentTest;
@@ -34,8 +35,14 @@ public class HomePage {
 	 * @throws IllegalStateException - if title is mismatches
 	 */
 	public void navigateToWeatherPage() {
-		browser.waitForVisibility(notificationPopupBy, "Notification Pop up", browser.LOADING_TIMEOUT);
-		browser.click(noThanksLinkBy, "No Thanks Link Option", browser.LOADING_TIMEOUT);
+		browser.waitForVisibility(logoNDTVBy, "NDTV_Logo", browser.LOADING_TIMEOUT);
+
+		// check for the optional pop up presence & close if available
+		browser.waitForVisibilityWithoutException(notificationPopupBy, "Notification Pop up", browser.LOADING_TIMEOUT);
+		if (browser.isElementPresent(notificationPopupBy, browser.LOADING_TIMEOUT / 60, "Notification Pop up")) {
+			browser.click(noThanksLinkBy, "No Thanks Link Option", browser.LOADING_TIMEOUT);
+		}
+
 		browser.click(subMenuBy, "Sub Menu", browser.LOADING_TIMEOUT);
 		browser.click(weatherMenuBy, "WEATHER Menu", browser.LOADING_TIMEOUT);
 		String title = browser.driver.getTitle();

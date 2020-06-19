@@ -53,7 +53,7 @@
           </li>
             <li class="m-r-10">
                 <a href="#">
-                    <span class="badge badge-primary">Jun 18, 2020 01:56:51 PM</span>
+                    <span class="badge badge-primary">Jun 19, 2020 10:19:39 PM</span>
                 </a>
             </li>
         </ul>
@@ -69,7 +69,15 @@
           <span class="title">Tests</span>
         </a>
       </li>
-            <li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
+            <li class="nav-item dropdown" onclick="toggleView('tag-view')">
+        <a id="nav-tag" class="dropdown-toggle" href="tag.html">
+          <span class="icon-holder">
+            <i class="fa fa-tag"></i>
+          </span>
+          <span class="title">Tags</span>
+        </a>
+      </li>
+      <li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
         <a id="nav-dashboard" class="dropdown-toggle" href="dashboard.html">
           <span class="icon-holder">
             <i class="fa fa-bar-chart"></i>
@@ -97,45 +105,58 @@
 					<i class="fa fa-exclamation-circle"></i>
 					</a>
 					<ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
+						<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success pull-right"></span></a>
+						<a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger pull-right"></span></a>
 						
 						
 						
-						
-						<a class="dropdown-item" status="warning" href="#"><span>Warning</span><span class="status warning pull-right"></span></a>
 						
 						<div class="dropdown-divider"></div>
 						<a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
+					</ul>
+				</li>
+				<li class="user-profile dropdown dropdown-animated scale-left">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<i class="fa fa-tag"></i>
+					</a>
+					<ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
+						<a class="dropdown-item" href="#">Coimbatore</a>
+						<a class="dropdown-item" href="#">Bengaluru</a>
 					</ul>
 				</li>
 			</ul>
 		</div>
 		<div class="test-list-wrapper scrollable">
 			<ul class="test-list-item">
-				<li class="test-item"  status="warning" test-id="1"
+				<li class="test-item"  status="pass" test-id="1"
 					author=""
-					tag=""
+					tag="Coimbatore Bengaluru"
 					device="">
-					<div class="status-avatar warning-bg">
-						<i class="fa fa-warning text-white"></i>
+					<div class="status-avatar pass-bg">
+						<i class="fa fa-check text-white"></i>
 					</div>
 					<div class="open-test">
 						<div class="test-detail">
-							<p class="name">Tempeature Comaparator Test</p>
-							<p class="duration text-sm">0h 0m 37s+123ms</p>
-							<span class="datetime">13:56:51 PM</span>
+							<p class="name">Validate Temperature In Degrees</p>
+							<p class="duration text-sm">0h 1m 23s+481ms</p>
+							<span class="datetime">22:19:39 PM</span>
 						</div>
 					</div>
 					<div class="test-contents d-none">
 						<div class="detail-head">
 							<div class="p-v-10 d-inline-block">
 								<div class="info">
-									<h5 class="test-status text-warning">Tempeature Comaparator Test</h5>
-									<span class='badge badge-success'>06.18.2020 13:56:51</span>
-									<span class='badge badge-danger'>06.18.2020 13:57:28</span>
-									<span class='badge badge-default'>0h 0m 37s+123ms</span>
+									<h5 class="test-status text-pass">Validate Temperature In Degrees</h5>
+									<span class='badge badge-success'>06.19.2020 22:19:39</span>
+									<span class='badge badge-danger'>06.19.2020 22:21:03</span>
+									<span class='badge badge-default'>0h 1m 23s+481ms</span>
+								</div>
+								<div class="m-t-15">
+			<span class="badge badge-pill badge-default"><i class="fa fa-tag"></i> Coimbatore</span>
+			<span class="badge badge-pill badge-default"><i class="fa fa-tag"></i> Bengaluru</span>
 								</div>
 								<div class="m-t-10 m-l-5">
-									Compares the Temperature from API & UI
+									Compares the temperature in degrees from API and UI sources
 								</div>
 							</div>
 						</div>
@@ -149,56 +170,691 @@
 	<tbody>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>1:57:22 PM</td>
+				<td>10:19:39 PM</td>
+				<td>
+						Search city/cities: Coimbatore,Bengaluru
+				</td>
+			</tr>
+	</tbody>
+</table>
+</div>
+<div class="mt-4">
+	<div class="accordion">
+			<div class="card">
+				<div class="card-header" role="tab">
+					<div class="card-title">
+						<div class="node">Temp in Degrees Test For City: Coimbatore</div>
+						<div class="status-avatar float-right pass-bg">
+						    <i class="fa fa-check text-white"></i>
+						</div>
+					</div>
+				</div>
+				<div class="collapse">
+					<div class="card-body">
+<table class="table table-sm">
+	<thead><tr>
+		<th class="status-col">Status</th>
+		<th class="timestamp-col">Timestamp</th>
+		<th class="details-col">Details</th>
+	</tr></thead>
+	<tbody>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:20:16 PM</td>
 				<td>
 						Successfully navigated to NDTV Weather page
 				</td>
 			</tr>
 			<tr class="event-row">
-				<td><i class="fa fa-warning text-warning"></i></td>
-				<td>1:57:22 PM</td>
-				<td>
-						Search City is not provided, checking for default city : <b>Coimbatore</b>
-				</td>
-			</tr>
-			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>1:57:23 PM</td>
+				<td>10:20:17 PM</td>
 				<td>
 						City <b>Coimbatore</b> is selected.
 				</td>
 			</tr>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>1:57:23 PM</td>
+				<td>10:20:18 PM</td>
 				<td>
 						City <b>Coimbatore</b> is dispalyed in Map
 				</td>
 			</tr>
 			<tr class="event-row">
-				<td><i class="fa fa-check text-pass"></i></td>
-				<td>1:57:25 PM</td>
+				<td><i class="fa fa-info text-info"></i></td>
+				<td>10:20:20 PM</td>
 				<td>
-						Weather Information for the City - Coimbatore : [Condition : Overcast, Wind: 7.38 KPH Gusting to 8.43 KPH, Humidity: 56%, Temp in Degrees: 31, Temp in Fahrenheit: 88]
-				</td>
-			</tr>
-			<tr class="event-row">
-				<td><i class="fa fa-warning text-warning"></i></td>
-				<td>1:57:26 PM</td>
-				<td>
-						Search City is not provided, checking for default city : <b>Coimbatore</b>
+						<table class='runtime-table table-striped table'><tr><td>Condition </td><td> Humid and Overcast</td></tr><tr><td>Wind</td><td> 5.69 KPH Gusting to 6.9 KPH</td></tr><tr><td>Humidity</td><td> 78%</td></tr><tr><td>Temp in Degrees</td><td> 28</td></tr><tr><td>Temp in Fahrenheit</td><td> 82</td></tr></table>
 				</td>
 			</tr>
 			<tr class="event-row">
 				<td><i class="fa fa-check text-pass"></i></td>
-				<td>1:57:28 PM</td>
+				<td>10:20:21 PM</td>
 				<td>
-						Successfully retrieved the response from the API
+						Request specifications were set up for the API Request for city : Coimbatore
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:20:25 PM</td>
+				<td>
+						Successfully retrieved the response from the API for the city :<b> Coimbatore
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:20:25 PM</td>
+				<td>
+						The values from the sources are matching within the specified range for Test: <b>Temp in Degrees</b>.<br>&#9673;  The Temp in Degrees in API : 25<br>&#9673;  The Temp in Degrees in UI :  28<br>&#9673;  The variance range : 7.0
+				</td>
+			</tr>
+	</tbody>
+</table>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" role="tab">
+					<div class="card-title">
+						<div class="node">Temp in Degrees Test For City: Bengaluru</div>
+						<div class="status-avatar float-right pass-bg">
+						    <i class="fa fa-check text-white"></i>
+						</div>
+					</div>
+				</div>
+				<div class="collapse">
+					<div class="card-body">
+<table class="table table-sm">
+	<thead><tr>
+		<th class="status-col">Status</th>
+		<th class="timestamp-col">Timestamp</th>
+		<th class="details-col">Details</th>
+	</tr></thead>
+	<tbody>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:00 PM</td>
+				<td>
+						Successfully navigated to NDTV Weather page
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-info text-info"></i></td>
+				<td>10:21:01 PM</td>
+				<td>
+						City <b>Bengaluru</b> already selected.
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:02 PM</td>
+				<td>
+						City <b>Bengaluru</b> is dispalyed in Map
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-info text-info"></i></td>
+				<td>10:21:03 PM</td>
+				<td>
+						<table class='runtime-table table-striped table'><tr><td>Condition </td><td> Overcast</td></tr><tr><td>Wind</td><td> 7.29 KPH Gusting to 9.12 KPH</td></tr><tr><td>Humidity</td><td> 55%</td></tr><tr><td>Temp in Degrees</td><td> 29</td></tr><tr><td>Temp in Fahrenheit</td><td> 84</td></tr></table>
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:03 PM</td>
+				<td>
+						Request specifications were set up for the API Request for city : Bengaluru
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:03 PM</td>
+				<td>
+						Successfully retrieved the response from the API for the city :<b> Bengaluru
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:03 PM</td>
+				<td>
+						The values from the sources are matching within the specified range for Test: <b>Temp in Degrees</b>.<br>&#9673;  The Temp in Degrees in API : 24.58<br>&#9673;  The Temp in Degrees in UI :  29<br>&#9673;  The variance range : 7.0
+				</td>
+			</tr>
+	</tbody>
+</table>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+					</div>
+				</li>
+				<li class="test-item"  status="fail" test-id="4"
+					author=""
+					tag="Coimbatore Bengaluru"
+					device="">
+					<div class="status-avatar fail-bg">
+						<i class="fa fa-times text-white"></i>
+					</div>
+					<div class="open-test">
+						<div class="test-detail">
+							<p class="name">Validate Temperature In Fahrenheit</p>
+							<p class="duration text-sm">0h 1m 14s+469ms</p>
+							<span class="datetime">22:21:04 PM</span>
+						</div>
+					</div>
+					<div class="test-contents d-none">
+						<div class="detail-head">
+							<div class="p-v-10 d-inline-block">
+								<div class="info">
+									<h5 class="test-status text-fail">Validate Temperature In Fahrenheit</h5>
+									<span class='badge badge-success'>06.19.2020 22:21:04</span>
+									<span class='badge badge-danger'>06.19.2020 22:22:19</span>
+									<span class='badge badge-default'>0h 1m 14s+469ms</span>
+								</div>
+								<div class="m-t-15">
+			<span class="badge badge-pill badge-default"><i class="fa fa-tag"></i> Coimbatore</span>
+			<span class="badge badge-pill badge-default"><i class="fa fa-tag"></i> Bengaluru</span>
+								</div>
+								<div class="m-t-10 m-l-5">
+									Compares the temperature in Fahrenheit from API and UI sources
+								</div>
+							</div>
+						</div>
+<div class="detail-body mt-4">                                              
+<table class="table table-sm">
+	<thead><tr>
+		<th class="status-col">Status</th>
+		<th class="timestamp-col">Timestamp</th>
+		<th class="details-col">Details</th>
+	</tr></thead>
+	<tbody>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:04 PM</td>
+				<td>
+						Search city/cities: Coimbatore,Bengaluru
 				</td>
 			</tr>
 	</tbody>
 </table>
 </div>
+<div class="mt-4">
+	<div class="accordion">
+			<div class="card">
+				<div class="card-header" role="tab">
+					<div class="card-title">
+						<div class="node">Temp in Fahrenheit Test For City: Coimbatore</div>
+						<div class="status-avatar float-right pass-bg">
+						    <i class="fa fa-check text-white"></i>
+						</div>
+					</div>
+				</div>
+				<div class="collapse">
+					<div class="card-body">
+<table class="table table-sm">
+	<thead><tr>
+		<th class="status-col">Status</th>
+		<th class="timestamp-col">Timestamp</th>
+		<th class="details-col">Details</th>
+	</tr></thead>
+	<tbody>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:38 PM</td>
+				<td>
+						Successfully navigated to NDTV Weather page
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:40 PM</td>
+				<td>
+						City <b>Coimbatore</b> is selected.
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:40 PM</td>
+				<td>
+						City <b>Coimbatore</b> is dispalyed in Map
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-info text-info"></i></td>
+				<td>10:21:43 PM</td>
+				<td>
+						<table class='runtime-table table-striped table'><tr><td>Condition </td><td> Humid and Overcast</td></tr><tr><td>Wind</td><td> 5.69 KPH Gusting to 6.9 KPH</td></tr><tr><td>Humidity</td><td> 78%</td></tr><tr><td>Temp in Degrees</td><td> 28</td></tr><tr><td>Temp in Fahrenheit</td><td> 82</td></tr></table>
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:43 PM</td>
+				<td>
+						Request specifications were set up for the API Request for city : Coimbatore
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:43 PM</td>
+				<td>
+						Successfully retrieved the response from the API for the city :<b> Coimbatore
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:21:43 PM</td>
+				<td>
+						The values from the sources are matching within the specified range for Test: <b>Temp in Fahrenheit</b>.<br>&#9673;  The Temp in Fahrenheit in API : 77<br>&#9673;  The Temp in Fahrenheit in UI :  82<br>&#9673;  The variance range : 7.0
+				</td>
+			</tr>
+	</tbody>
+</table>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" role="tab">
+					<div class="card-title">
+						<div class="node">Temp in Fahrenheit Test For City: Bengaluru</div>
+						<div class="status-avatar float-right fail-bg">
+						    <i class="fa fa-times text-white"></i>
+						</div>
+					</div>
+				</div>
+				<div class="collapse">
+					<div class="card-body">
+<table class="table table-sm">
+	<thead><tr>
+		<th class="status-col">Status</th>
+		<th class="timestamp-col">Timestamp</th>
+		<th class="details-col">Details</th>
+	</tr></thead>
+	<tbody>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:17 PM</td>
+				<td>
+						Successfully navigated to NDTV Weather page
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-info text-info"></i></td>
+				<td>10:22:18 PM</td>
+				<td>
+						City <b>Bengaluru</b> already selected.
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:18 PM</td>
+				<td>
+						City <b>Bengaluru</b> is dispalyed in Map
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-info text-info"></i></td>
+				<td>10:22:19 PM</td>
+				<td>
+						<table class='runtime-table table-striped table'><tr><td>Condition </td><td> Overcast</td></tr><tr><td>Wind</td><td> 7.29 KPH Gusting to 9.12 KPH</td></tr><tr><td>Humidity</td><td> 55%</td></tr><tr><td>Temp in Degrees</td><td> 29</td></tr><tr><td>Temp in Fahrenheit</td><td> 84</td></tr></table>
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:19 PM</td>
+				<td>
+						Request specifications were set up for the API Request for city : Bengaluru
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:19 PM</td>
+				<td>
+						Successfully retrieved the response from the API for the city :<b> Bengaluru
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-times text-fail"></i></td>
+				<td>10:22:19 PM</td>
+				<td>
+						Matcher Exception: The values difference is not in the specified range<br>.&#9673;  Specifed variance range: 7.0<br>&#9673;  Actual variance: 8.530000000000001
+				</td>
+			</tr>
+	</tbody>
+</table>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+					</div>
+				</li>
+				<li class="test-item"  status="fail" test-id="7"
+					author=""
+					tag="Coimbatore Bengaluru"
+					device="">
+					<div class="status-avatar fail-bg">
+						<i class="fa fa-times text-white"></i>
+					</div>
+					<div class="open-test">
+						<div class="test-detail">
+							<p class="name">Validate Humidity</p>
+							<p class="duration text-sm">0h 1m 8s+753ms</p>
+							<span class="datetime">22:22:20 PM</span>
+						</div>
+					</div>
+					<div class="test-contents d-none">
+						<div class="detail-head">
+							<div class="p-v-10 d-inline-block">
+								<div class="info">
+									<h5 class="test-status text-fail">Validate Humidity</h5>
+									<span class='badge badge-success'>06.19.2020 22:22:20</span>
+									<span class='badge badge-danger'>06.19.2020 22:23:29</span>
+									<span class='badge badge-default'>0h 1m 8s+753ms</span>
+								</div>
+								<div class="m-t-15">
+			<span class="badge badge-pill badge-default"><i class="fa fa-tag"></i> Coimbatore</span>
+			<span class="badge badge-pill badge-default"><i class="fa fa-tag"></i> Bengaluru</span>
+								</div>
+								<div class="m-t-10 m-l-5">
+									Compares the Humidity from API and UI sources
+								</div>
+							</div>
+						</div>
+<div class="detail-body mt-4">                                              
+<table class="table table-sm">
+	<thead><tr>
+		<th class="status-col">Status</th>
+		<th class="timestamp-col">Timestamp</th>
+		<th class="details-col">Details</th>
+	</tr></thead>
+	<tbody>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:20 PM</td>
+				<td>
+						Search city/cities: Coimbatore,Bengaluru
+				</td>
+			</tr>
+	</tbody>
+</table>
+</div>
+<div class="mt-4">
+	<div class="accordion">
+			<div class="card">
+				<div class="card-header" role="tab">
+					<div class="card-title">
+						<div class="node">Humidity Test For City: Coimbatore</div>
+						<div class="status-avatar float-right pass-bg">
+						    <i class="fa fa-check text-white"></i>
+						</div>
+					</div>
+				</div>
+				<div class="collapse">
+					<div class="card-body">
+<table class="table table-sm">
+	<thead><tr>
+		<th class="status-col">Status</th>
+		<th class="timestamp-col">Timestamp</th>
+		<th class="details-col">Details</th>
+	</tr></thead>
+	<tbody>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:52 PM</td>
+				<td>
+						Successfully navigated to NDTV Weather page
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:53 PM</td>
+				<td>
+						City <b>Coimbatore</b> is selected.
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:53 PM</td>
+				<td>
+						City <b>Coimbatore</b> is dispalyed in Map
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-info text-info"></i></td>
+				<td>10:22:55 PM</td>
+				<td>
+						<table class='runtime-table table-striped table'><tr><td>Condition </td><td> Humid and Overcast</td></tr><tr><td>Wind</td><td> 5.69 KPH Gusting to 6.9 KPH</td></tr><tr><td>Humidity</td><td> 78%</td></tr><tr><td>Temp in Degrees</td><td> 28</td></tr><tr><td>Temp in Fahrenheit</td><td> 82</td></tr></table>
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:55 PM</td>
+				<td>
+						Request specifications were set up for the API Request for city : Coimbatore
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:55 PM</td>
+				<td>
+						Successfully retrieved the response from the API for the city :<b> Coimbatore
+				</td>
+			</tr>
+			<tr class="event-row">
+				<td><i class="fa fa-check text-pass"></i></td>
+				<td>10:22:55 PM</td>
+				<td>
+						The values from the sources are matching within the specified range for Test: <b>Humidity</b>.<br>&#9673;  The Humidity in API : 78<br>&#9673;  The Humidity in UI :  78<br>&#9673;  The variance range : 15.0
+				</td>
+			</tr>
+	</tbody>
+</table>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" role="tab">
+					<div class="card-title">
+						<div class="node">Humidity Test For City: Bengaluru</div>
+						<div class="status-avatar float-right fail-bg">
+						    <i class="fa fa-times text-white"></i>
+						</div>
+					</div>
+				</div>
+				<div class="collapse">
+					<div class="card-body">
+<table class="table table-sm">
+	<thead><tr>
+		<th class="status-col">Status</th>
+		<th class="timestamp-col">Timestamp</th>
+		<th class="details-col">Details</th>
+	</tr></thead>
+	<tbody>
+			<tr class="event-row">
+				<td><i class="fa fa-times text-fail"></i></td>
+				<td>10:23:29 PM</td>
+				<td>
+						Failed to naviagate NDTV Weather page, the current page title is: NDTV: Latest News, India News, Breaking News, Business, Bollywood, Cricket, Videos & Photos
+				</td>
+			</tr>
+	</tbody>
+</table>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="test-content scrollable">
+		<div class="test-content-tools">
+			<ul>
+				<li>
+					<a class="back-to-test" href="javascript:void(0)">
+					<i class="fa fa-arrow-left"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="test-content-detail">
+			<div class="detail-body"></div>
+		</div>
+	</div>
+</div><div class="test-wrapper row tag-view attributes-view">
+	<div class="test-list">
+		<div class="test-list-tools">
+			<ul class="tools pull-left">
+				<li>
+					<a href="">
+					<span class="font-size-14">Tags</span>
+					</a>
+				</li>
+			</ul>
+			<ul class="tools text-right">
+				<li>
+					<a href="#">
+					<span class="badge badge-primary">2</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="test-list-wrapper scrollable">
+			<ul class="test-list-item">
+				<li class="test-item">
+					<div class="open-test">
+						<div class="test-detail">
+							<p class="name">Coimbatore</p>
+							<p class="duration text-sm">3 tests</p>
+							<span class="datetime">
+							<span class='badge badge-success'>1</span>
+							<span class='badge badge-danger'>2</span>
+							
+							
+							</span>
+						</div>
+					</div>
+					<div class="test-contents d-none">
+						<div class="info">
+							<h4>Coimbatore</h4>
+							<span status="pass" class='badge badge-success'>1 passed</span>
+							<span status="fail" class='badge badge-danger'>2 failed</span>
+							
+							
+						</div>
+						<table class='table table-sm mt-4'>
+							<thead>
+								<tr>
+									<th class="status-col">Status</th>
+									<th class="timestamp-col">Timestamp</th>
+									<th>TestName</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="tag-test-status" status="pass">
+									<td>
+										<div class='status-avatar pass-bg'>
+											<i class="fa fa-check text-white"></i>
+										</div>
+									</td>
+									<td>22:19:39 PM</td>
+									<td class='linked' test-id='1'>
+										Validate Temperature In Degrees
+									</td>
+								</tr>
+								<tr class="tag-test-status" status="fail">
+									<td>
+										<div class='status-avatar fail-bg'>
+											<i class="fa fa-times text-white"></i>
+										</div>
+									</td>
+									<td>22:21:04 PM</td>
+									<td class='linked' test-id='4'>
+										Validate Temperature In Fahrenheit
+									</td>
+								</tr>
+								<tr class="tag-test-status" status="fail">
+									<td>
+										<div class='status-avatar fail-bg'>
+											<i class="fa fa-times text-white"></i>
+										</div>
+									</td>
+									<td>22:22:20 PM</td>
+									<td class='linked' test-id='7'>
+										Validate Humidity
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</li>
+				<li class="test-item">
+					<div class="open-test">
+						<div class="test-detail">
+							<p class="name">Bengaluru</p>
+							<p class="duration text-sm">3 tests</p>
+							<span class="datetime">
+							<span class='badge badge-success'>1</span>
+							<span class='badge badge-danger'>2</span>
+							
+							
+							</span>
+						</div>
+					</div>
+					<div class="test-contents d-none">
+						<div class="info">
+							<h4>Bengaluru</h4>
+							<span status="pass" class='badge badge-success'>1 passed</span>
+							<span status="fail" class='badge badge-danger'>2 failed</span>
+							
+							
+						</div>
+						<table class='table table-sm mt-4'>
+							<thead>
+								<tr>
+									<th class="status-col">Status</th>
+									<th class="timestamp-col">Timestamp</th>
+									<th>TestName</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="tag-test-status" status="pass">
+									<td>
+										<div class='status-avatar pass-bg'>
+											<i class="fa fa-check text-white"></i>
+										</div>
+									</td>
+									<td>22:19:39 PM</td>
+									<td class='linked' test-id='1'>
+										Validate Temperature In Degrees
+									</td>
+								</tr>
+								<tr class="tag-test-status" status="fail">
+									<td>
+										<div class='status-avatar fail-bg'>
+											<i class="fa fa-times text-white"></i>
+										</div>
+									</td>
+									<td>22:21:04 PM</td>
+									<td class='linked' test-id='4'>
+										Validate Temperature In Fahrenheit
+									</td>
+								</tr>
+								<tr class="tag-test-status" status="fail">
+									<td>
+										<div class='status-avatar fail-bg'>
+											<i class="fa fa-times text-white"></i>
+										</div>
+									</td>
+									<td>22:22:20 PM</td>
+									<td class='linked' test-id='7'>
+										Validate Humidity
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</li>
 			</ul>
@@ -221,7 +877,7 @@
 </div>                    <!-- dashboard -->
 <div class="container-fluid p-4 dashboard-view">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-sm-12 col-md-4">
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">Tests</h6>
@@ -232,19 +888,39 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<div><small data-tooltip='0%'>
-						<b>0</b> tests passed
+					<div><small data-tooltip='33.333%'>
+						<b>1</b> tests passed
 						</small>
 					</div>
 					<div>
-						<small data-tooltip='0%'><b>0</b> tests failed, 
-						<b>0</b> skipped, <b data-tooltip='100%'>1</b> others
+						<small data-tooltip='66.667%'><b>2</b> tests failed, 
+						<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
 						</small>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-sm-12 col-md-4">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Steps</h6>
+				</div>
+				<div class="card-body">
+					<div class="">
+						<canvas id='child-analysis' width='115' height='90'></canvas>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div><small data-tooltip='66.667%'><b>4</b> steps passed</small></div>
+					<div>
+						<small data-tooltip='33.333%'><b>2</b> steps failed, 
+						<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
+						</small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-4">
 			<div class="card">
 				<div class="card-header">
 					<h6 class="card-title">Log events</h6>
@@ -255,10 +931,10 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<div><small data-tooltip='71.429%'><b>5</b> events passed</small></div>
+					<div><small data-tooltip='76.923%'><b>30</b> events passed</small></div>
 					<div>
-						<small data-tooltip='0%'><b>0</b> events failed, 
-						<b data-tooltip='28.571%'>2</b> others
+						<small data-tooltip='5.128%'><b>2</b> events failed, 
+						<b data-tooltip='17.949%'>7</b> others
 						</small>
 					</div>
 				</div>
@@ -272,10 +948,29 @@
 					<div class="media justify-content-between">
 						<div class="card-header">
 							<h6 class="card-title">Tests</h6>
-							<h2 class="font-size-28 font-weight-light mt-3">1</h2>
+							<h2 class="font-size-28 font-weight-light mt-3">3</h2>
 							<span class="text-semibold text-success font-size-15">
 							<i class="ti-arrow-up font-size-11"></i> 
-							<span>.00%</span>
+							<span>33.33%</span>
+							</span>
+						</div>
+						<div class="align-self-end">
+							<i class="fa fa-align-left font-size-70 opacity-01"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card">
+				<div class="card-body box-height-150">
+					<div class="media justify-content-between">
+						<div class="card-header">
+							<h6 class="card-title">Steps</h6>
+							<h2 class="font-size-28 font-weight-light mt-3">6</h2>
+							<span class="text-semibold text-success font-size-15">
+							<i class="ti-arrow-up font-size-11"></i> 
+							<span>66.67%</span>
 							</span>
 						</div>
 						<div class="align-self-end">
@@ -291,7 +986,7 @@
 					<div class="media justify-content-between">
 						<div class="card-header">
 							<h6 class="card-title">Start</h6>
-							<h4 class="font-weight-light mt-4">Jun 18, 2020 01:56:51 PM</h4>
+							<h4 class="font-weight-light mt-4">Jun 19, 2020 10:19:39 PM</h4>
 							<span class="text-semibold text-success font-size-15">
 						</div>
 						<div class="align-self-end">
@@ -307,7 +1002,7 @@
 					<div class="media justify-content-between">
 						<div class="card-header">
 							<h6 class="card-title">Duration</h6>
-							<h4 class="font-weight-light mt-4">0h 0m 39s+292ms</h4>
+							<h4 class="font-weight-light mt-4">0h 3m 51s+333ms</h4>
 							<span class="text-semibold font-size-15">
 						</div>
 						<div class="align-self-end">
@@ -333,28 +1028,71 @@
 		</div>
 	</div>
 	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<h6 class="card-title">Tags</h6>
+				</div>
+				<div class="table-overflow">
+					<table class="table table-sm">
+						<thead>
+							<tr class="bg-gray">
+								<th>Name</th>
+								<th>Passed</th>
+								<th>Failed</th>
+								<th>Skipped</th>
+								<th>Others</th>
+								<th>Passed %</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Coimbatore</td>
+								<td>1</td>
+								<td>2</td>
+								<td>0</td>
+								<td>0</td>
+								<td>
+									33.333%
+								</td>
+							</tr>
+							<tr>
+								<td>Bengaluru</td>
+								<td>1</td>
+								<td>2</td>
+								<td>0</td>
+								<td>0</td>
+								<td>
+									33.333%
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <script>
 	var statusGroup = {
-	    parentCount: 1,
-		passParent: 0,
-		failParent: 0,
+	    parentCount: 3,
+		passParent: 1,
+		failParent: 2,
 		fatalParent: 0,
 		errorParent: 0,
-		warningParent: 1,
+		warningParent: 0,
 		skipParent: 0,
-		exceptionsParent: 1,
-		childCount: 0,
-		passChild: 0,
-		failChild: 0,
+		exceptionsParent: 2,
+		childCount: 6,
+		passChild: 4,
+		failChild: 2,
 		fatalChild: 0,
 		errorChild: 0,
 		warningChild: 0,
 		skipChild: 0,
 		infoChild: 0,
 		debugChild: 0,
-		exceptionsChild: 0,
+		exceptionsChild: 2,
 		grandChildCount: 0,
 		passGrandChild: 0,
 		failGrandChild: 0,
@@ -365,21 +1103,21 @@
 		infoGrandChild: 0,
 		debugGrandChild: 0,
 		exceptionsGrandChild: 0,
-		eventsCount: 7,
-		passEvents: 5,
-		failEvents: 0,
+		eventsCount: 39,
+		passEvents: 30,
+		failEvents: 2,
 		fatalEvents: 0,
 		errorEvents: 0,
-		warningEvents: 2,
+		warningEvents: 0,
 		skipEvents: 0,
-		infoEvents: 0,
+		infoEvents: 7,
 		debugEvents: 0,
 		exceptionsEvents: 0
 	};
 </script>
 <script>
 	var timeline = {
-	        "Tempeature Comaparator Test":37.123
+	        "Validate Temperature In Degrees":83.481,"Validate Temperature In Fahrenheit":74.469,"Validate Humidity":68.753
 	};
 </script>
                 </div>

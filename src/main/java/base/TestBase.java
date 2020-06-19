@@ -33,7 +33,7 @@ public class TestBase {
 	@Parameters({ "testCaseName", "testDescription" })
 	public void beforeClassMethod(String testCaseName, String testDescription) {
 		extentTest = extentReporter.startTestCase(testCaseName, testDescription);
-		if (testCaseName.contains("Temperature In Degress")) {
+		if (testCaseName.contains("Temperature In Degrees")) {
 			weatherConditionKey = WeatherConstants.TEMP_IN_DEGREES;
 			setupVariance("Temperature_variance");
 		} else if (testCaseName.contains("Temperature In Fahrenheit")) {

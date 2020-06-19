@@ -24,7 +24,7 @@ public class TC01_ValidateWeatherCondition extends TestBase {
 	public void weatherComparatorTest(String searchCity) {
 		Browser browser = new Browser();
 		ExtentTest childTest = extentTest.createNode(weatherConditionKey + " Test For City: " + searchCity);
-		extentTest.assignCategory(weatherConditionKey + " Test For City:-" + searchCity);
+		extentTest.assignCategory(searchCity);
 		try {
 			browser.launchURL(url);
 			WeatherPage weatherPage = new WeatherPage(browser, childTest);
