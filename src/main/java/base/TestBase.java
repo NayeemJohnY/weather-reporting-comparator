@@ -4,9 +4,7 @@ import static utils.ExtentHTMLReporter.reportLog;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -19,31 +17,10 @@ public class TestBase {
 	protected String url = TestProperties.getProperties("URL");
 	protected Logger log = LogManager.getLogger();
 	protected static ExtentHTMLReporter extentReporter  = new ExtentHTMLReporter();;
-	protected ExtentTest extentTest;
 	protected String searchCity = System.getProperty("City");
 	protected double variance = 0;
-	protected String weatherConditionKey = "";
 	public static final String BLACK_CIRCLE = "&#9673;";
-	/**
-	 * Method to set up start a report, weather condition key & variance
-	 * @param testCaseName
-	 * @param testDescription
-	 */
-	@BeforeClass
-	@Parameters({ "testCaseName", "testDescription" })
-	public void beforeClassMethod(String testCaseName, String testDescription) {
-		extentTest = extentReporter.startTestCase(testCaseName, testDescription);
-		if (testCaseName.contains("Temperature In Degrees")) {
-			weatherConditionKey = WeatherConstants.TEMP_IN_DEGREES;
-			setupVariance("Temperature_variance");
-		} else if (testCaseName.contains("Temperature In Fahrenheit")) {
-			weatherConditionKey = WeatherConstants.TEMP_IN_FAHRENHEIT;
-			setupVariance("Temperature_variance");
-		} else if (testCaseName.contains("Humidity")) {
-			weatherConditionKey = WeatherConstants.HUMIDITY;
-			setupVariance("Humidity_variance");
-		}
-	}
+
 
 	/**
 	 * Method to data of cities for Test
@@ -53,10 +30,9 @@ public class TestBase {
 	public Object[] getCityNames() {
 		if (searchCity == null || searchCity.isEmpty()) {
 			searchCity = TestProperties.getProperties("City");
-			reportLog(extentTest, Status.WARNING,
-					"Search City is not provided, checking for default cities : <b>" + searchCity + "</b>");
+			log.info("Search City is not provided, checking for default cities : {}", searchCity);
 		} else {
-			reportLog(extentTest, Status.PASS, "Search city/cities: " + searchCity);
+			log.info("Search city/cities: {}" , searchCity);
 		}
 		return searchCity.split(",");
 	}
@@ -76,7 +52,7 @@ public class TestBase {
 			return true;
 		} else {
 			throw new IllegalStateException(
-					"Matcher Exception: The values difference is not in the specified range<br>." +
+					"Matcher Exception: The values difference is not in the specified range.<br>" +
 							BLACK_CIRCLE + "  Specifed variance range: " + variance + "<br>" +
 							BLACK_CIRCLE + "  Actual variance: " + actualVariance);
 		}
@@ -87,7 +63,7 @@ public class TestBase {
 	 * @param varianceKey
 	 * @throws IllegalArgumentException - if values are not decimal
 	 */
-	protected void setupVariance(String varianceKey) {
+	protected void setupVariance(ExtentTest extentTest, String varianceKey) {
 		String varianceValue = System.getProperty(varianceKey);
 		if (varianceValue == null || varianceValue.isEmpty()) {
 			varianceValue = TestProperties.getProperties(varianceKey);
