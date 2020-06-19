@@ -29,6 +29,10 @@ public class HomePage {
 		PageFactory.initElements(browser.driver, this);
 	}
 
+	/**
+	 * Method to navigate to the Weather page from the Home page
+	 * @throws IllegalStateException - if title is mismatches
+	 */
 	public void navigateToWeatherPage() {
 		browser.waitForVisibility(notificationPopupBy, "Notification Pop up", browser.LOADING_TIMEOUT);
 		browser.click(noThanksLinkBy, "No Thanks Link Option", browser.LOADING_TIMEOUT);
