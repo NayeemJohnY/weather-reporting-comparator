@@ -22,12 +22,12 @@ public class Browser {
 
 	Logger log = LogManager.getLogger();
 	public RemoteWebDriver driver;
-	public final int LOADING_TIMEOUT = Integer.parseInt(TestProperties.getProperties("loadingTimeout"));
+	public final long LOADING_TIMEOUT = Integer.parseInt(TestProperties.getProperties("loadingTimeout"));
 
 	/**
 	 * Method to set up the the driver with the chrome browser It initializes the
-	 * driver with respective browser with WebDriver Manager class WebDriver Manager
-	 * - responsible for downloading & configuring the driver.exe files for browser
+	 * driver with respective browser with WebDriver Manager class
+	 * WebDriver Manager- responsible for downloading & configuring the driver.exe files for browser
 	 * Note: This can be extended to support other browsers
 	 */
 	private void setupBrowser() {
@@ -44,7 +44,7 @@ public class Browser {
 			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 			options.merge(capabilities);
 		} else {
-			throw new IllegalStateException("Unsupported Browser : " + browserName);
+			throw new IllegalArgumentException("Unsupported Browser : " + browserName);
 		}
 
 		// Get the execution server side local or Remote
@@ -64,19 +64,36 @@ public class Browser {
 		}
 	}
 
+	/**
+	 * Method to set up the browser & launch the url
+	 * @param url
+	 */
 	public void launchURL(String url) {
 		setupBrowser();
 		driver.get(url);
 		log.info("Successfully launched URL : {}", url);
 	}
 
-	public void waitForVisibility(By locator, String elementName, int timeOutInSeconds) {
+	/**
+	 * Wait for an element's presence and visibility for a timeout in seconds.
+	 * @param locator - By
+	 * @param elementName - Name of the element
+	 * @param timeOutInSeconds - Wait time in seconds
+	 */
+	public void waitForVisibility(By locator, String elementName, long timeOutInSeconds) {
 		log.info("Waiting for {} seconds for visibilty of element: {}", timeOutInSeconds, elementName);
 		new WebDriverWait(driver, timeOutInSeconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
 		log.info("{} element become visible ", elementName);
 	}
 
-	public void click(By locator, String elementName, int timeOutInSeconds) {
+	/**
+	 * Waits for element to be present for time specified in properties
+	 * and then clicks on all instances found 'by'
+	 * @param locator - By
+	 * @param elementName - Name of the element
+	 * @param timeOutInSeconds - Wait time in seconds
+	 */
+	public void click(By locator, String elementName, long timeOutInSeconds) {
 		log.info("Waiting for {} seconds for element to be clickable {}", timeOutInSeconds, elementName);
 		WebElement element = new WebDriverWait(driver, timeOutInSeconds)
 				.until(ExpectedConditions.elementToBeClickable(locator));
@@ -105,7 +122,14 @@ public class Browser {
 		}
 	}
 
-	public void sendKeys(By locator, String keys, String elementName, int timeOutInSeconds) {
+	/**
+	 * Method to send the keys to the element specified by locator
+	 * @param locator - By
+	 * @param keys - String keys
+	 * @param elementName - Name of the element
+	 * @param timeOutInSeconds - Wait time in seconds
+	 */
+	public void sendKeys(By locator, String keys, String elementName, long timeOutInSeconds) {
 		waitForVisibility(locator, elementName, timeOutInSeconds);
 		log.info("sending keys {} by locator {} for element {}", keys, locator, elementName);
 		WebElement element = driver.findElement(locator);
@@ -114,6 +138,13 @@ public class Browser {
 
 	}
 
+	/**
+	 * Checks an elements presence on the page with wait time.
+	 * @param locator - By
+	 * @param elementName - Name of the element
+	 * @param timeOutInSeconds - Wait time in seconds
+	 * @return boolean - element presence
+	 */
 	public boolean isElementPresent(By locator, long timeOutInSeconds, String elementName) {
 		boolean isPresent = !driver.findElements(locator).isEmpty();
 		if (!isPresent) {
