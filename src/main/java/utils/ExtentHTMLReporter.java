@@ -12,23 +12,41 @@ public class ExtentHTMLReporter {
 
 	static Logger log = LogManager.getLogger();
 
+	ExtentReports extentReports;
 	public ExtentHTMLReporter() {
-		configureReporter();
+		extentReports = configureReporter();
 	}
 
-	ExtentReports extentReports;
+	ExtentSparkReporter extentSparkReporter;
 
-	public void configureReporter() {
-		ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter("test_results/result.html");
+	/**
+	 * Method to configure the extent html report
+	 * @return extentReports
+	 */
+	public ExtentReports configureReporter() {
+		extentSparkReporter = new ExtentSparkReporter("test_results/result.html");
 		extentSparkReporter.loadXMLConfig("./src/test/resources/extent-report-config.xml");
 		extentReports = new ExtentReports();
 		extentReports.attachReporter(extentSparkReporter);
+		return extentReports;
 	}
 
+	/**
+	 * Method to start the test case in report
+	 * @param testName
+	 * @param description
+	 * @return ExtentTest
+	 */
 	public ExtentTest startTestCase(String testName, String description) {
 		return extentReports.createTest(testName, description);
 	}
 
+	/**
+	 * Method to log the messages in the report
+	 * @param extentTest - ExtentTest
+	 * @param status - Status
+	 * @param message - Status
+	 */
 	public static void reportLog(ExtentTest extentTest, Status status, String message) {
 		String logDescription = message.replaceAll("\\<.*?\\>", "");
 		switch (status) {
