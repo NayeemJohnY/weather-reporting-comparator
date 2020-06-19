@@ -1,37 +1,58 @@
 package tests;
 
+import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
+import static utils.ExtentHTMLReporter.reportLog;
 
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 
 import base.API;
 import base.Browser;
 import base.TestBase;
 import pages.WeatherPage;
-import static utils.ExtentHTMLReporter.reportLog;
 
-public class TC01_ValidateTemperature extends TestBase {
+public class TC01_ValidateWeatherCondition extends TestBase {
 
-	@Test
-	public void TemperatureComparatorTest() {
+	/**
+	 * Method to execute the test and compare the weather conditions for the city
+	 * @param searchCity
+	 */
+	@Test(dataProvider = "Search City Names")
+	public void weatherComparatorTest(String searchCity) {
 		Browser browser = new Browser();
+		ExtentTest childTest = extentTest.createNode(weatherConditionKey + " Test For City: " + searchCity);
+		extentTest.assignCategory(weatherConditionKey + " Test For City:-" + searchCity);
 		try {
-			extentTest = extentReporter.startTestCase("Tempeature Comaparator Test", "Compares the Temperature from API & UI");
-			browser.launchURL(URL);
-			WeatherPage weatherPage = new WeatherPage(browser, extentTest);
-			weatherPage.getWeatherInfoFromUI();
-			API api = new API(extentTest);
-			api.getWeatherInfoFromAPI();
+			browser.launchURL(url);
+			WeatherPage weatherPage = new WeatherPage(browser, childTest);
+
+			// Retrieve the weather condition info from UI source for the city & key
+			String weatherValueFromUISource = weatherPage.getWeatherInfoFromUISourceForCity(searchCity, weatherConditionKey);
+
+			API api = new API(childTest);
+
+			// Retrieve the weather condition info from API source for the city & key
+			String weatherValueFromAPISource = api.getWeatherInfoFromAPISourceForCity(searchCity, weatherConditionKey);
+
+			assertTrue(valueComparatorWithVariance(weatherValueFromUISource, weatherValueFromAPISource));
+			reportLog(childTest, Status.PASS,
+					"The values from the sources are matching within the specified range for Test"
+							+ weatherConditionKey);
+		} catch (IllegalStateException | IllegalArgumentException e) {
+			reportLog(childTest, Status.FAIL, e.getMessage());
+			fail(e.getMessage(), e);
 		} catch (Exception e) {
-			String message = "Exception occurred while in tempature comparator test :<br/>"+ e.getMessage();
+			String message = "Exception occurred while verifing " + weatherConditionKey + " Test :<br>" + e.getMessage();
 			log.error(message, e);
-			reportLog(extentTest, Status.ERROR, message);
-			fail();
+			reportLog(childTest, Status.ERROR, e.getMessage());
+			fail(message, e);
 		} finally {
 			browser.closeActiveBrowser();
 			extentReporter.flushResult();
 		}
 	}
+
 }
