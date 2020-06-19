@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-	<test name="ValidateTemperatureInDegress">
+	<test name="ValidateTemperatureInDegrees">
 		<parameter name="testCaseName"
-			value="Validate Temperature In Degress"></parameter>
+			value="Validate Temperature In Degrees"></parameter>
 		<parameter name="testDescription"
-			value="Compares the temperature in degress from API and UI sources"></parameter>
+			value="Compares the temperature in degrees from API and UI sources"></parameter>
 		<classes>
 			<class name="tests.TC01_ValidateWeatherCondition" />
 		</classes>

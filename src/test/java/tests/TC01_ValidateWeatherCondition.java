@@ -39,13 +39,16 @@ public class TC01_ValidateWeatherCondition extends TestBase {
 
 			assertTrue(valueComparatorWithVariance(weatherValueFromUISource, weatherValueFromAPISource));
 			reportLog(childTest, Status.PASS,
-					"The values from the sources are matching within the specified range for Test"
-							+ weatherConditionKey);
+					"The values from the sources are matching within the specified range for Test: <b>"
+							+ weatherConditionKey + "</b>.<br>" + BLACK_CIRCLE + "  The " + weatherConditionKey + " in API : "
+							+ weatherValueFromAPISource + "<br>" + BLACK_CIRCLE +"  The " + weatherConditionKey + " in UI : "
+							+ weatherValueFromUISource + "<br>" + BLACK_CIRCLE + "  The variance range : " + variance);
 		} catch (IllegalStateException | IllegalArgumentException e) {
 			reportLog(childTest, Status.FAIL, e.getMessage());
+			log.error(e.getMessage(), e);
 			fail(e.getMessage(), e);
 		} catch (Exception e) {
-			String message = "Exception occurred while verifing " + weatherConditionKey + " Test :<br>" + e.getMessage();
+			String message = "Exception occurred while verifing " + weatherConditionKey + " Test :<br>" + BLACK_CIRCLE + e.getMessage();
 			log.error(message, e);
 			reportLog(childTest, Status.ERROR, e.getMessage());
 			fail(message, e);

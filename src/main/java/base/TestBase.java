@@ -20,10 +20,10 @@ public class TestBase {
 	protected Logger log = LogManager.getLogger();
 	protected static ExtentHTMLReporter extentReporter  = new ExtentHTMLReporter();;
 	protected ExtentTest extentTest;
-	protected String searchCity = System.getProperty("city");
+	protected String searchCity = System.getProperty("City");
 	protected double variance = 0;
 	protected String weatherConditionKey = "";
-
+	public static final String BLACK_CIRCLE = "&#9673;";
 	/**
 	 * Method to set up start a report, weather condition key & variance
 	 * @param testCaseName
@@ -52,11 +52,11 @@ public class TestBase {
 	@DataProvider(name = "Search City Names")
 	public Object[] getCityNames() {
 		if (searchCity == null || searchCity.isEmpty()) {
-			searchCity = TestProperties.getProperties("city");
+			searchCity = TestProperties.getProperties("City");
 			reportLog(extentTest, Status.WARNING,
 					"Search City is not provided, checking for default cities : <b>" + searchCity + "</b>");
 		} else {
-			reportLog(extentTest, Status.PASS, "Search City is: " + searchCity);
+			reportLog(extentTest, Status.PASS, "Search city/cities: " + searchCity);
 		}
 		return searchCity.split(",");
 	}
@@ -76,8 +76,9 @@ public class TestBase {
 			return true;
 		} else {
 			throw new IllegalStateException(
-					"Matcher Exception the values difference is not in the specified range. Specifed variance range: "
-							+ variance + " Actual variance: " + actualVariance);
+					"Matcher Exception: The values difference is not in the specified range<br>." +
+							BLACK_CIRCLE + "  Specifed variance range: " + variance + "<br>" +
+							BLACK_CIRCLE + "  Actual variance: " + actualVariance);
 		}
 	}
 
@@ -97,7 +98,7 @@ public class TestBase {
 			variance = Double.parseDouble(varianceValue);
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException("Variance Value should only contains the decimal values. But current "
-					+ varianceKey + " contains other than decimals" + varianceValue);
+					+ varianceKey + " contains other than decimals: " + varianceValue);
 		}
 	}
 

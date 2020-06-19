@@ -14,6 +14,7 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import utils.TestProperties;
 
 public class API {
@@ -32,11 +33,9 @@ public class API {
 	 * @return response
 	 */
 	public Response getResponse(String searchCity, String weatherKey) {
-		setupAPISepecifcations(searchCity, weatherKey);
-		Response response = RestAssured.get();
+		Response response = RestAssured.given(setupAPISepecifcations(searchCity, weatherKey)).log().all().get();
 		Validate.isTrue(response.statusCode() == 200,
 				"The actual status code" + response.statusCode() + " does not match 200 code");
-		reportLog(extentTest, Status.PASS, "Successfully retrieved the response from the API ");
 		return response;
 	}
 
@@ -44,21 +43,25 @@ public class API {
 	 * Method to set up the specifications for the API request; baseURI, basePath, Query parameters
 	 * @param searchCity
 	 * @param weatherKey
+	 * @return requestSpecification
 	 */
-	public void setupAPISepecifcations(String searchCity, String weatherKey) {
-		RestAssured.baseURI = TestProperties.getProperties("BaseURI");
-		RestAssured.basePath = TestProperties.getProperties("BasePath");
+	public RequestSpecification setupAPISepecifcations(String searchCity, String weatherKey) {
+		String baseURI = TestProperties.getProperties("BaseURI");
+		String basePath = TestProperties.getProperties("BasePath");
 		Map<String, String> mapOfQueryParameters = new HashMap<>();
 		mapOfQueryParameters.put("q", searchCity);
 		mapOfQueryParameters.put("appid", apiKey);
-
 		if (weatherKey.equals(WeatherConstants.TEMP_IN_DEGREES)) {
 			mapOfQueryParameters.put("units", "metric");
 		} else if (weatherKey.equals(WeatherConstants.TEMP_IN_FAHRENHEIT)) {
 			mapOfQueryParameters.put("units", "imperial");
 		}
-		RestAssured.requestSpecification = new RequestSpecBuilder().addQueryParams(mapOfQueryParameters).build();
-		reportLog(extentTest, Status.PASS, "Request specifications were set up for the API Request.");
+		RequestSpecification requestSpecification = new RequestSpecBuilder()
+				.setBaseUri(baseURI)
+				.setBasePath(basePath)
+				.addQueryParams(mapOfQueryParameters).build();
+		reportLog(extentTest, Status.PASS, "Request specifications were set up for the API Request for city : "+ searchCity);
+		return requestSpecification;
 	}
 
 	/**
@@ -72,8 +75,8 @@ public class API {
 		Response response = getResponse(searchCity, weatherKey);
 		JsonPath jsonPath = response.body().jsonPath();
 		String actualCityName = jsonPath.getString("name");
-		Validate.isTrue(actualCityName.equals(searchCity), "The reponse retrieved for the different city : " + actualCityName + ".But given city is : " + searchCity);
-		reportLog(extentTest, Status.PASS, "Given city name <b>" + searchCity + " is matching with city name <b>" + actualCityName + " in retrived API reponse");
+		Validate.isTrue(actualCityName.equals(searchCity), "The response retrieved for the city : " + actualCityName + ".But given city is : " + searchCity);
+		reportLog(extentTest, Status.PASS, "Successfully retrieved the response from the API for the city :<b> " + searchCity);
 		if (weatherKey.equals(WeatherConstants.TEMP_IN_DEGREES) || weatherKey.equals(WeatherConstants.TEMP_IN_FAHRENHEIT)) {
 			weatherValue = jsonPath.getString("main.temp");
 		} else if (weatherKey.equals(WeatherConstants.HUMIDITY)) {

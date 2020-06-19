@@ -43,7 +43,6 @@ public class WeatherPage {
 	public String getWeatherInfoFromUISourceForCity( String searchCity, String weatherKey) {
 		String weatherValue = "";
 		List<String> listOFWeatherInfo = getWeatherInfoForCity(searchCity);
-		reportLog(extentTest, Status.PASS, "Weather Information for the City - " + searchCity);
 		String[][] arrayOfWeatherData = new String[listOFWeatherInfo.size()][2];
 		for (int i = 0; i < listOFWeatherInfo.size(); i++) {
 			String[] weatherInfo = listOFWeatherInfo.get(i).split(":");
@@ -69,22 +68,19 @@ public class WeatherPage {
 		homePage.navigateToWeatherPage();
 		browser.waitForVisibility(pinYourCityElementBy, "Pin Your City", browser.LOADING_TIMEOUT);
 		browser.sendKeys(searchBoxBy, searchCity, "Search Box", browser.LOADING_TIMEOUT);
+		browser.waitForVisibility(availableCitiesBy, "Pin Your City", browser.LOADING_TIMEOUT);
 		List<WebElement> availableCitiesElements = browser.driver.findElements(availableCitiesBy);
 		if (availableCitiesElements.isEmpty()) {
 			throw new IllegalArgumentException("No matching city is available with city Name : " + searchCity);
-		} else if (availableCitiesElements.size() > 1) {
-			reportLog(extentTest, Status.WARNING,
-					"Multiple cities are matching with city name : <b>" + searchCity + "</b>. Selecting the 1st City");
 		}
 	}
 
 	/**
 	 * Method to select city from available cities & pin the City in Map
 	 */
-	private void pinCityinMap() {
-		List<WebElement> availableCitiesElements = browser.driver.findElements(availableCitiesBy);
-		WebElement cityElement = availableCitiesElements.get(0);
-		String cityName = cityElement.getAttribute("id");
+	private void pinCityinMap(String cityName) {
+		By cityElementBy = By.xpath("//div[@class='message' and not(@style='display: none;')]//input[@id='" + cityName + "']");
+		WebElement cityElement = browser.driver.findElement(cityElementBy);
 		if (cityElement.isSelected()) {
 			reportLog(extentTest, Status.INFO, "City <b>" + cityName + "</b> already selected.");
 		} else {
@@ -106,7 +102,7 @@ public class WeatherPage {
 	 */
 	private List<String> getWeatherInfoForCity(String searchCity) {
 		checkCityisAvailableToSelect(searchCity);
-		pinCityinMap();
+		pinCityinMap(searchCity);
 		By cityInMapBy = By.xpath("//div[@class='outerContainer' and @title='" + searchCity + "']");
 		browser.click(cityInMapBy, "City in Map", browser.LOADING_TIMEOUT);
 		browser.waitForVisibility(weatherPopupContentsBy, "Weather Pop up Contents", browser.LOADING_TIMEOUT);
