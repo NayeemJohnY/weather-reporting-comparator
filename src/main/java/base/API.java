@@ -40,7 +40,7 @@ public class API {
 	}
 
 	/**
-	 * Method to set up the specifications for the API request; baseURI, basePath, Query parameters
+	 * Method to set up the specifications for the API request; baseURI, basePath and Query parameters
 	 * @param searchCity
 	 * @param weatherKey
 	 * @return requestSpecification
@@ -56,11 +56,10 @@ public class API {
 		} else if (weatherKey.equals(WeatherConstants.TEMP_IN_FAHRENHEIT)) {
 			mapOfQueryParameters.put("units", "imperial");
 		}
-		RequestSpecification requestSpecification = new RequestSpecBuilder()
-				.setBaseUri(baseURI)
-				.setBasePath(basePath)
+		RequestSpecification requestSpecification = new RequestSpecBuilder().setBaseUri(baseURI).setBasePath(basePath)
 				.addQueryParams(mapOfQueryParameters).build();
-		reportLog(extentTest, Status.PASS, "Request specifications were set up for the API Request for city : "+ searchCity);
+		reportLog(extentTest, Status.PASS,
+				"Request specifications were set up for the API Request for city : " + searchCity);
 		return requestSpecification;
 	}
 
@@ -75,9 +74,12 @@ public class API {
 		Response response = getResponse(searchCity, weatherKey);
 		JsonPath jsonPath = response.body().jsonPath();
 		String actualCityName = jsonPath.getString("name");
-		Validate.isTrue(actualCityName.equals(searchCity), "The response retrieved for the city : " + actualCityName + ".But given city is : " + searchCity);
-		reportLog(extentTest, Status.PASS, "Successfully retrieved the response from the API for the city :<b> " + searchCity);
-		if (weatherKey.equals(WeatherConstants.TEMP_IN_DEGREES) || weatherKey.equals(WeatherConstants.TEMP_IN_FAHRENHEIT)) {
+		Validate.isTrue(actualCityName.equals(searchCity),
+				"The response retrieved for the city : " + actualCityName + ".But given city is : " + searchCity);
+		reportLog(extentTest, Status.PASS,
+				"Successfully retrieved the response from the API for the city :<b> " + searchCity);
+		if (weatherKey.equals(WeatherConstants.TEMP_IN_DEGREES)
+				|| weatherKey.equals(WeatherConstants.TEMP_IN_FAHRENHEIT)) {
 			weatherValue = jsonPath.getString("main.temp");
 		} else if (weatherKey.equals(WeatherConstants.HUMIDITY)) {
 			weatherValue = jsonPath.getString("main.humidity");
@@ -86,5 +88,4 @@ public class API {
 		}
 		return weatherValue;
 	}
-
 }

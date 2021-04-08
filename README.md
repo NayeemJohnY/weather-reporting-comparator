@@ -21,12 +21,13 @@ This project is will compare weather conditions like Temperature in Degrees, Tem
 *   **HTML Extent Report**: This report will be generated after execution of all tests in current directory folder: test_results/result.html
 *   **Loggers**: To know the execution steps or to debug the log file will be generated in current directory folder:target/logs/weather-reporting-comparator.txt
 
-##### Test cases covered
-Currently the below test cases are covered:
-		
-*   _ValidateTemperatureInDegrees_ : It compares the temperature in degrees from the sources with the temperature variance range allowed for the given city.
-*   _ValidateTemperatureInFahrenheit_ : It compares the temperature in Fahrenheit from the sources with the temperature variance range allowed for the given city.
-* 	_ValidateHumidity_ :It compares the humidity % value from the sources with variance allowed range.
+##### Weather conditions covered
+Currently the below Weather conditions comparison are covered:
+
+*   Humidity
+*   Temperature In Degrees
+*	Temperature In Fahrenheit 
+
 
 ##### Execution Steps in Local
 
@@ -35,7 +36,7 @@ Currently the below test cases are covered:
 3. 	To execute the test with default parameters : **mvn clean test**
 4. 	To execute with the new parameters, specify all custom parameters as below
 		
-> **mvn clean test -DCity=${cityName} -DTemperature_variance=${variance_value} -DHumidity_variance=${variance_value} -DTestCasesToRun=${TestCaseNames}**
+> **mvn clean test -DCity=${cityName} -DTemperature_variance=${variance_value} -DHumidity_variance=${variance_value} -DWeatherConditionsn=${WeatherConditions}**
 
 The All parameters are optional, if any parameters are not specified, The default values will be taken from the **GlobalTestProperties.properties file**
 
@@ -43,7 +44,7 @@ The All parameters are optional, if any parameters are not specified, The defaul
 	
 	${variance_value}= variance range must be decimal value eg:2, 10.8, 12.7888
 	
-	DTestCasesToRun = To run all only the specified tests , pass the test name to this property. TO Run all the tests, should not specify this property
+	${WeatherConditions} = Humidity,Temperature In Degrees,Temperature In Fahrenheit or WeatherConditions = Humidity [Single or multiple conditions]
 
 ##### Extent HTML Report
 After Run is completed, the HTML report can be found in the test_reusults folder which have the summary of test execution

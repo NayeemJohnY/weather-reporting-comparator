@@ -3,7 +3,9 @@ package pages;
 import static utils.ExtentHTMLReporter.reportLog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,31 +34,6 @@ public class WeatherPage {
 		this.extentTest = extentTest;
 		PageFactory.initElements(browser.driver, this);
 
-	}
-
-	/**
-	 * Method to get the Weather value for the condition key for the city
-	 * @param searchCity
-	 * @param weatherKey
-	 * @return weatherValue - value for the weatherKey
-	 */
-	public String getWeatherInfoFromUISourceForCity( String searchCity, String weatherKey) {
-		String weatherValue = "";
-		List<String> listOFWeatherInfo = getWeatherInfoForCity(searchCity);
-		String[][] arrayOfWeatherData = new String[listOFWeatherInfo.size()][2];
-		for (int i = 0; i < listOFWeatherInfo.size(); i++) {
-			String[] weatherInfo = listOFWeatherInfo.get(i).split(":");
-			arrayOfWeatherData[i][0] = weatherInfo[0];
-			arrayOfWeatherData[i][1] = weatherInfo[1];
-
-			// Get the value for the condition key
-			if (weatherInfo[0].equalsIgnoreCase(weatherKey)) {
-				weatherValue = weatherInfo[1].replace("%", "");
-			}
-		}
-		// Log the weather conditions info from the UI
-		extentTest.info(MarkupHelper.createTable(arrayOfWeatherData));
-		return weatherValue;
 	}
 
 	/**
@@ -98,9 +75,9 @@ public class WeatherPage {
 	/**
 	 * Method to get the  All weather conditions values for the city
 	 * @param searchCity
-	 * @return listOfWeatherInfo - List of weather condition info
+	 * @return mapOfWeatherData - map of weather condition info
 	 */
-	private List<String> getWeatherInfoForCity(String searchCity) {
+	public Map<String, String> getWeatherInfoForCity(String searchCity) {
 		checkCityisAvailableToSelect(searchCity);
 		pinCityinMap(searchCity);
 		By cityInMapBy = By.xpath("//div[@class='outerContainer' and @title='" + searchCity + "']");
@@ -110,8 +87,17 @@ public class WeatherPage {
 		for (WebElement weatherElement : browser.driver.findElements(weatherPopupContentsBy)) {
 			listOfWeatherInfo.add(weatherElement.getAttribute("textContent"));
 		}
+		Map<String, String> mapOfWeatherData = new HashMap<>();
+		String [][] weatherdataArray = new String[listOfWeatherInfo.size()][2];
+		for (int i = 0; i < listOfWeatherInfo.size(); i++) {
+			String[] weatherInfo = listOfWeatherInfo.get(i).split(":");
+			mapOfWeatherData.put(weatherInfo[0], weatherInfo[1]);
+			weatherdataArray[i][0]= weatherInfo[0];
+			weatherdataArray[i][1]= weatherInfo[1];
+		}
+		extentTest.info(MarkupHelper.createTable(weatherdataArray));
 		By closePopupBy = By.xpath("//a[@class='leaflet-popup-close-button']");
 		browser.click(closePopupBy, "Close Weather Content Pop up", browser.LOADING_TIMEOUT);
-		return listOfWeatherInfo;
+		return mapOfWeatherData;
 	}
 }

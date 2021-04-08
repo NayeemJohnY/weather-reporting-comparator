@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-	<test name="ValidateTemperatureInDegrees">
-		<parameter name="testCaseName"
-			value="Validate Temperature In Degrees"></parameter>
-		<parameter name="testDescription"
-			value="Compares the temperature in degrees from API and UI sources"></parameter>
-		<classes>
-			<class name="tests.TC01_ValidateWeatherCondition" />
-		</classes>
-	</test>
-	<test name="ValidateTemperatureInFahrenheit">
-		<parameter name="testCaseName"
-			value="Validate Temperature In Fahrenheit"></parameter>
-		<parameter name="testDescription"
-			value="Compares the temperature in Fahrenheit from API and UI sources"></parameter>
-		<classes>
-			<class name="tests.TC01_ValidateWeatherCondition" />
-		</classes>
-	</test>
-	<test name="ValidateHumidity">
-		<parameter name="testCaseName"
-			value="Validate Humidity"></parameter>
-		<parameter name="testDescription"
-			value="Compares the Humidity from API and UI sources"></parameter>
+	<test name="ValidateWeatherCondition">
 		<classes>
 			<class name="tests.TC01_ValidateWeatherCondition" />
 		</classes>
