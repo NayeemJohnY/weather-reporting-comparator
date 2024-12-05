@@ -69,12 +69,6 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
-					<properties>
-						<property>
-							<name>testnames</name>
-							<value>${TestCasesToRun}</value>
-						</property>
-					</properties>
 				</configuration>
 			</plugin>
 		</plugins>
